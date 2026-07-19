@@ -3,159 +3,184 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SUSACAK MISIN?</title>
+<title>Sana ❤️</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,Helvetica,sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
 
 body{
-    background:#000;
-    color:#fff;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    overflow:hidden;
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(-45deg,#ff4d6d,#ff85a2,#ffb3c6,#ffd6e0);
+background-size:400% 400%;
+animation:bg 12s ease infinite;
 }
 
-#container{
-    text-align:center;
+@keyframes bg{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+.container{
+text-align:center;
+z-index:10;
+padding:20px;
 }
 
 h1{
-    font-size:clamp(38px,8vw,80px);
-    margin-bottom:30px;
+font-size:clamp(42px,8vw,90px);
+color:#fff;
+text-shadow:0 0 15px #fff,0 0 35px #ff0080;
+animation:pulse 2s infinite;
 }
 
-.buttons{
-    display:flex;
-    justify-content:center;
-    gap:20px;
-    position:relative;
+#love{
+margin-top:35px;
+font-size:clamp(24px,5vw,42px);
+font-weight:bold;
+color:#fff;
+text-shadow:0 0 10px #fff;
+min-height:70px;
+animation:fade .5s;
 }
 
-button{
-    padding:16px 34px;
-    font-size:24px;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-    font-weight:bold;
+@keyframes pulse{
+50%{transform:scale(1.08);}
 }
 
-#yes{
-    background:#16a34a;
-    color:#fff;
+@keyframes fade{
+from{opacity:0;}
+to{opacity:1;}
 }
 
-#no{
-    background:#dc2626;
-    color:#fff;
-    position:relative;
+.star{
+position:absolute;
+width:3px;
+height:3px;
+background:white;
+border-radius:50%;
+animation:blink 2s infinite;
 }
 
-#result{
-    position:absolute;
-    inset:0;
-    display:none;
-    justify-content:center;
-    align-items:center;
-    font-size:clamp(40px,8vw,80px);
-    font-weight:bold;
+@keyframes blink{
+50%{
+opacity:.2;
+transform:scale(2);
+}
 }
 
-.firework{
-    position:absolute;
-    width:8px;
-    height:8px;
-    border-radius:50%;
-    animation:explode 1s forwards;
+.heart{
+position:absolute;
+bottom:-40px;
+font-size:28px;
+animation:fly linear forwards;
+pointer-events:none;
 }
 
-@keyframes explode{
-    from{
-        transform:translate(0,0);
-        opacity:1;
-    }
-    to{
-        transform:translate(var(--x),var(--y));
-        opacity:0;
-    }
+@keyframes fly{
+0%{
+transform:translateY(0) rotate(0deg);
+opacity:1;
 }
+100%{
+transform:translateY(-120vh) rotate(720deg);
+opacity:0;
+}
+}
+
 </style>
 </head>
 
 <body>
 
-<div id="container">
+<div class="container">
 
-<h1>SUSACAK MISIN?</h1>
+<h1>❤️ SENİ ÇOK SEVİYORUM ❤️</h1>
 
-<div class="buttons">
-    <button id="yes">SUSUCAM</button>
-    <button id="no">SUSMUYCAM</button>
-</div>
+<div id="love"></div>
 
-</div>
-
-<div id="result">
-AFERİN ADAM OL
 </div>
 
 <script>
 
-const no=document.getElementById("no");
+const words=[
+"❤️ Seni Seviyorum ❤️",
+"❤️ I Love You ❤️",
+"❤️ Aşkım ❤️",
+"❤️ Balım ❤️",
+"❤️ Bebeğim ❤️",
+"❤️ Canım ❤️",
+"❤️ Hayatım ❤️",
+"❤️ Bir Tanem ❤️",
+"❤️ Güzelim ❤️",
+"❤️ Kalbimin Sahibi ❤️",
+"❤️ Her Şeyimsin ❤️",
+"❤️ Sen Benim Dünyamsın ❤️",
+"❤️ Gülüşün Çok Güzel ❤️",
+"❤️ İyi ki Varsın ❤️",
+"❤️ En Güzel Hikâyem Sensin ❤️",
+"❤️ Kalbim Hep Seninle ❤️",
+"❤️ Sonsuza Kadar Sen ❤️",
+"❤️ İyi ki Benimsin ❤️"
+];
 
-function kac(){
+let i=0;
 
-    const x=Math.random()*(window.innerWidth-180);
-    const y=Math.random()*(window.innerHeight-80);
+function changeText(){
+document.getElementById("love").textContent=words[i];
+i=(i+1)%words.length;
+}
 
-    no.style.position="fixed";
-    no.style.left=x+"px";
-    no.style.top=y+"px";
+changeText();
+setInterval(changeText,1800);
+
+const colors=[
+"#ff1744","#ff4081","#ff80ab",
+"#f50057","#ff6f00","#ffd600",
+"#76ff03","#00e5ff","#2979ff","#d500f9"
+];
+
+function createHeart(){
+
+const h=document.createElement("div");
+
+h.className="heart";
+
+h.innerHTML="❤";
+
+h.style.color=colors[Math.floor(Math.random()*colors.length)];
+
+h.style.left=Math.random()*100+"vw";
+
+h.style.fontSize=(24+Math.random()*26)+"px";
+
+h.style.animationDuration=(4+Math.random()*4)+"s";
+
+document.body.appendChild(h);
+
+setTimeout(()=>h.remove(),8000);
 
 }
 
-no.addEventListener("mouseenter",kac);
-no.addEventListener("touchstart",(e)=>{
-    e.preventDefault();
-    kac();
-});
+setInterval(createHeart,60);
 
-document.getElementById("yes").onclick=()=>{
+for(let i=0;i<120;i++){
 
-    document.getElementById("container").style.display="none";
+let s=document.createElement("div");
 
-    const result=document.getElementById("result");
-    result.style.display="flex";
+s.className="star";
 
-    for(let i=0;i<180;i++){
+s.style.left=Math.random()*100+"vw";
+s.style.top=Math.random()*100+"vh";
+s.style.animationDelay=Math.random()*2+"s";
 
-        const d=document.createElement("div");
+document.body.appendChild(s);
 
-        d.className="firework";
-
-        d.style.background=`hsl(${Math.random()*360},100%,60%)`;
-
-        d.style.left=window.innerWidth/2+"px";
-        d.style.top=window.innerHeight/2+"px";
-
-        d.style.setProperty("--x",(Math.random()*900-450)+"px");
-        d.style.setProperty("--y",(Math.random()*900-450)+"px");
-
-        document.body.appendChild(d);
-
-        setTimeout(()=>d.remove(),1000);
-
-    }
-
-};
+}
 
 </script>
 
